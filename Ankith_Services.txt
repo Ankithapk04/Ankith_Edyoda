@@ -1,0 +1,29 @@
+3) You have deployed an application, that is listening at port 8000. You used a replica-set to deploy it and created a NodePort service to make it accessible. But when you test it, somehow the application is not reachable at the port. Write down your approach and sequentially all the steps that you will take to find out the issue.
+
+1.kubectl get replicaset
+-> kubectl get pods
+ 
+2. Describe ReplicaSet and Pods
+-> kubectl describe replicaset <replicaset-name>
+kubectl describe pod <pod-name>
+ 
+3. Check Pod logs
+-> kubectl logs <pod-name>
+ 
+4. Verify NodePort service
+-> kubectl get service <service-name>
+-> kubectl describe service <service-name>
+ 
+5. Check application inside Pod
+-> kubectl exec -it <pod-name> -- netstat -tuln | grep 8000
+ 
+6. Verify NodePort mapping
+-> kubectl get service <service-name> -o jsonpath='{.spec.ports[0].nodePort}'
+ 
+7. Check firewall and node accessibility
+-> curl <node-ip>:<nodeport>
+ 
+8. Verify Cluster IP and NodePort connectivity
+-> kubectl run curl-test --rm -it --image=curlimages/curl -- bash
+-> curl <cluster-ip>:8000
+-> curl <node-ip>:<nodeport>

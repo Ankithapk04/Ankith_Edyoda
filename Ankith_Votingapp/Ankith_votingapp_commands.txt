@@ -1,0 +1,55 @@
+4)**Voting App**
+
+-> cd $home (root)
+-> kubectl delete all --all
+-> git clone  https://github.com/ashishrpandey/example-voting-app
+
+// Checking the repos
+-> ls
+-> cd example-voting-app
+-> cd k8s-specifications
+-> ls 
+-> vi vote-service.yaml
+ 	Nodeport : 31002 (changing the nodeport in voteservice.yaml)
+	:wq ( to save and exit ) 
+-> vi result-service.yaml
+	Nodeport : 31003 (changing the nodeport in resultservice.yaml)
+	:wq ( to save and exit ) 
+-> kubectl apply -f . ( Creating all the pods)
+
+// Opening my application to vote and check results
+// publicIP: 31002 ( Voteapp Browser ) 
+// publicIP: 31003 ( resultapp Browser )
+
+***Voting successfully done*** 
+
+// View all the pods
+-> kubectl get po 
+
+Now try to delete the Pods one by one (first voting Pod, then worker pod, then db pod) and see what happens to the voting and result app after deleting.
+
+// Deleting the Votepod
+-> kubectl delete po vote
+( Successfully delete VotePod, It is creating new pod due to replica set )
+
+// Deleting the Workerpod
+-> kubectl delete po WorkerPod
+( Successfully delete workerPod, It is creating new pod due to replica set )
+
+// Deleting the DBpod
+-> kubectl delete po DBpod
+( Successfully delete DBpod )
+
+what happens after db pod deletion?
+// I observed that the Data stored is deleted in DB
+// The voting captured data is deleted
+// So, No votes found..
+
+// Now Voting newly in order to made the result Pod work again. 
+// Voting successfully done 
+// New Votes is been recorded
+
+-----------------
+
+Jargons learnt in this Training session
+A: Docker Images, Microservices, Kubernetes cluster, Controllers, CNI, calico, Pv/pvc, Volumes, statefulsets etc..

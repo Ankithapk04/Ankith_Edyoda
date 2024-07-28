@@ -1,0 +1,3 @@
+1) Write a common use-case, where you will use a daemon set instead of replica set.
+
+In a cloud-native infrastructure, you want to implement a network monitoring and security solution that provides visibility into network traffic, monitors for suspicious activities, and enforces security policies across all nodes in your Kubernetes cluster. This type of monitoring typically requires an agent to be deployed on every node to capture network traffic and apply security policies effectively.
